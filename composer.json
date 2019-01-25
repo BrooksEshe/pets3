@@ -1,0 +1,16 @@
+{
+  "name":"bskargre/it328/pp2",
+  "authors": [
+    {
+      "name": "Brandon Skar",
+      "email": "bransk01@yahoo.com"
+    },
+    {
+      "name": "Brooks Eshe",
+      "email": "beshe@mail.mail.greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
