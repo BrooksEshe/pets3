@@ -12,7 +12,10 @@
         </check>
         <select name="color">
             <repeat group="{{@colors}}" value="{{@colorOption}}">
-                <option>{{ @colorOption }}</option>
+                <option>
+                    <check if="{{ @colorOption == @color }}">selected</check>
+                    {{ @colorOption }}
+                </option>
             </repeat>
         </select>
         <input type="submit" value="Submit">
