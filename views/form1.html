@@ -10,6 +10,9 @@
 <body>
     <form action="#" method="POST">
         <label>Animal:&nbsp</label>
+        <check if="{{ isset(@errors['animal']) }}">
+            <p>{{ @errors ['animal']}}</p>
+        </check>
         <input type="text" name="animal">
         <br>
         <input type="submit" value="Next">

@@ -8,7 +8,7 @@ function validColor($color)
 
 function validString($string)
 {
-    if(1 === preg_match('~[0-9]~', $string) OR $string == null)
+    if(1 === preg_match('~[0-9]+~', $string) OR $string == null)
     {
         return false;
     }

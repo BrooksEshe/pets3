@@ -23,24 +23,47 @@ $f3->set('colors', array('pink', 'green', 'blue'));
 //Turn of fat free error reporting
 $f3->set('DEBUG', 3);
 
+//require validation
+require_once('model/validation-functions.php');
+
 //Define a default route
 $f3->route('GET /', function() {
     echo "<h1>My Pets</h1><br>";
     echo "<a href='order'>Order a Pet</a>";
 });
 
-$f3->route('GET|POST /order', function() {
-    $view = new View();
-    echo $view->render('views/form1.html');
+$f3->route('GET|POST /order', function($f3) {
+    $_SESSION = array();
+    $animal = $_POST['animal'];
+    if(isset($_POST['animal'])){
+        if(validString($animal)){
+            $_SESSION['animal'] = $animal;
+            $f3 -> reroute('/order2');
+        }else{
+            $f3->set("errors['animal']", "Please enter an animal.");
+        }
+    }
+    $template = new Template();
+    echo $template->render('views/form1.html');
 });
 
-$f3->route('POST|GET /order2', function() {
+$f3->route('POST|GET /order2', function($f3) {
     $_SESSION['animal'] = $_POST['animal'];
+    $_SESSION = array();
+    $color = $_POST['color'];
+    if(isset($_POST['color'])){
+        if(validString($color)){
+            $_SESSION['animal'] = $color;
+            $f3 -> reroute('/results');
+        }else{
+            $f3->set("errors['color']", "Please enter an color.");
+        }
+    }
     $template = new Template();
     echo $template->render('views/form2.html');
 });
 
-$f3->route('POST /results', function() {
+$f3->route('POST|GET /results', function() {
     $_SESSION['color'] = $_POST['color'];
     $color = $_SESSION['color'];
     $animal = $_SESSION['animal'];
