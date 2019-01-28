@@ -34,8 +34,8 @@ $f3->route('GET /', function() {
 
 $f3->route('GET|POST /order', function($f3) {
     $_SESSION = array();
-    $animal = $_POST['animal'];
     if(isset($_POST['animal'])){
+        $animal = $_POST['animal'];
         if(validString($animal)){
             $_SESSION['animal'] = $animal;
             $f3 -> reroute('/order2');
@@ -48,12 +48,10 @@ $f3->route('GET|POST /order', function($f3) {
 });
 
 $f3->route('POST|GET /order2', function($f3) {
-    $_SESSION['animal'] = $_POST['animal'];
-    $_SESSION = array();
     $color = $_POST['color'];
     if(isset($_POST['color'])){
-        if(validString($color)){
-            $_SESSION['animal'] = $color;
+        if(validColor($color)){
+            $_SESSION['color'] = $color;
             $f3 -> reroute('/results');
         }else{
             $f3->set("errors['color']", "Please enter an color.");
@@ -64,9 +62,7 @@ $f3->route('POST|GET /order2', function($f3) {
 });
 
 $f3->route('POST|GET /results', function() {
-    $_SESSION['color'] = $_POST['color'];
-    $color = $_SESSION['color'];
-    $animal = $_SESSION['animal'];
+    print_r($_SESSION);
     //echo "<h3>Thank you for ordering a $color $animal</h3>";
     $template = new Template();
     echo $template->render('views/results.html');
